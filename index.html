@@ -1,0 +1,734 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoReg - Автоматическая регистрация в каталогах</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        .progress-bar {
+            height: 20px;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+
+        .catalog-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .floating-btn {
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+            animation: fadeIn 0.5s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50 font-sans">
+    <a href="https://autoreg.ru"></a>
+    <header class="bg-blue-600 text-white shadow-lg">
+        <div class="container mx-auto px-4 py-6">
+            <div class="flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <i class="fas fa-rocket text-2xl"></i>
+                    <h1 class="text-2xl font-bold">AutoReg</h1>
+                </div>
+                <nav class="hidden md:flex space-x-6">
+                    <a href="#features" class="hover:text-blue-200 transition">Возможности</a>
+                    <a href="#pricing" class="hover:text-blue-200 transition">Тарифы</a>
+                    <a href="#add-catalog" class="hover:text-blue-200 transition">Добавить каталог</a>
+                    <a href="#contacts" class="hover:text-blue-200 transition">Контакты</a>
+                </nav>
+                <button class="md:hidden text-xl" id="mobile-menu-button">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="md:hidden bg-blue-700 hidden" id="mobile-menu">
+        <div class="container mx-auto px-4 py-2 flex flex-col space-y-3">
+            <a href="#features" class="text-white hover:text-blue-200 transition py-2">Возможности</a>
+            <a href="#pricing" class="text-white hover:text-blue-200 transition py-2">Тарифы</a>
+            <a href="#add-catalog" class="text-white hover:text-blue-200 transition py-2">Добавить каталог</a>
+            <a href="#contacts" class="text-white hover:text-blue-200 transition py-2">Контакты</a>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-500 to-blue-700 text-white py-16">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl md:text-5xl font-bold mb-6">Автоматическая регистрация в каталогах</h2>
+            <p class="text-xl mb-8 max-w-2xl mx-auto">Увеличьте посещаемость вашего сайта с помощью автоматической
+                регистрации в сотнях каталогов и досок объявлений</p>
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-4">
+                <button
+                    class="bg-white text-blue-600 font-bold py-3 px-8 rounded-full hover:bg-blue-100 transition">Начать
+                    регистрацию</button>
+                <button
+                    class="border-2 border-white text-white font-bold py-3 px-8 rounded-full hover:bg-white hover:text-blue-600 transition">Узнать
+                    больше</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Наши возможности</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Feature 1 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-blue-500 mb-4">
+                        <i class="fas fa-database text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Обширная база каталогов</h3>
+                    <p class="text-gray-600">Более 500 проверенных каталогов и досок объявлений для регистрации вашего
+                        сайта</p>
+                </div>
+
+                <!-- Feature 2 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-blue-500 mb-4">
+                        <i class="fas fa-chart-line text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Визуализация процесса</h3>
+                    <p class="text-gray-600">Наглядное отображение прогресса регистрации в реальном времени</p>
+                </div>
+
+                <!-- Feature 3 -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-md hover:shadow-lg transition">
+                    <div class="text-blue-500 mb-4">
+                        <i class="fas fa-check-circle text-4xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-3">Проверка живучести</h3>
+                    <p class="text-gray-600">Автоматическая проверка добавленных каталогов на работоспособность</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Registration Process Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Процесс регистрации</h2>
+
+            <div class="max-w-3xl mx-auto bg-white p-8 rounded-xl shadow-md">
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4">Введите данные вашего сайта</h3>
+                    <div class="grid md:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-gray-700 mb-2">Название сайта</label>
+                            <input type="text"
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">URL сайта</label>
+                            <input type="url"
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Категория</label>
+                            <select
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                <option>Интернет-магазин</option>
+                                <option>Услуги</option>
+                                <option>Информационный сайт</option>
+                                <option>Блог</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-gray-700 mb-2">Описание</label>
+                            <textarea
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                rows="2"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4">Выберите тариф</h3>
+                    <div class="grid md:grid-cols-3 gap-4" id="tariff-selector">
+                        <div class="tariff-option border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-blue-500 transition"
+                            data-tariff="basic">
+                            <h4 class="font-bold text-lg">Малый</h4>
+                            <p class="text-gray-600 mb-2">25% каталогов</p>
+                            <p class="text-2xl font-bold text-blue-600">990 ₽</p>
+                        </div>
+                        <div class="tariff-option border-2 border-blue-500 p-4 rounded-lg cursor-pointer bg-blue-50"
+                            data-tariff="standard">
+                            <h4 class="font-bold text-lg">Средний</h4>
+                            <p class="text-gray-600 mb-2">45% каталогов</p>
+                            <p class="text-2xl font-bold text-blue-600">1 490 ₽</p>
+                        </div>
+                        <div class="tariff-option border-2 border-gray-200 p-4 rounded-lg cursor-pointer hover:border-blue-500 transition"
+                            data-tariff="premium">
+                            <h4 class="font-bold text-lg">Максимальный</h4>
+                            <p class="text-gray-600 mb-2">100% каталогов</p>
+                            <p class="text-2xl font-bold text-blue-600">2 490 ₽</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h3 class="text-xl font-bold mb-4">Прогресс регистрации</h3>
+                    <div class="mb-2 flex justify-between">
+                        <span>Выполнено: <span id="progress-percent">0</span>%</span>
+                        <span>Осталось: <span id="remaining-count">125</span> каталогов</span>
+                    </div>
+                    <div class="w-full bg-gray-200 rounded-full h-4">
+                        <div id="progress-bar" class="progress-bar bg-blue-600 rounded-full h-4" style="width: 0%">
+                        </div>
+                    </div>
+                    <div class="mt-4 grid grid-cols-3 gap-2 text-sm">
+                        <div class="bg-green-100 text-green-800 p-2 rounded text-center">Успешно: <span
+                                id="success-count">0</span></div>
+                        <div class="bg-yellow-100 text-yellow-800 p-2 rounded text-center">В процессе: <span
+                                id="process-count">0</span></div>
+                        <div class="bg-red-100 text-red-800 p-2 rounded text-center">Ошибки: <span
+                                id="error-count">0</span></div>
+                    </div>
+                </div>
+
+                <div class="flex justify-between items-center">
+                    <button
+                        class="bg-gray-200 text-gray-700 font-bold py-2 px-6 rounded-lg hover:bg-gray-300 transition">Отмена</button>
+                    <button id="start-registration"
+                        class="bg-blue-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-blue-700 transition flex items-center">
+                        <span>Начать регистрацию</span>
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Наши тарифы</h2>
+
+            <div class="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                <!-- Basic Plan -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-gray-100 p-6 text-center">
+                        <h3 class="text-xl font-bold">Малый</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-bold">990 ₽</span>
+                            <span class="text-gray-500">/месяц</span>
+                        </div>
+                        <p class="text-gray-600">25% каталогов</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Регистрация в 125 каталогах</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Проверка живучести</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Отчет по регистрации</span>
+                            </li>
+                            <li class="flex items-center text-gray-400">
+                                <i class="fas fa-times text-red-400 mr-2"></i>
+                                <span>Премиум каталоги</span>
+                            </li>
+                        </ul>
+                        <button
+                            class="w-full mt-6 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition">Выбрать
+                            тариф</button>
+                    </div>
+                </div>
+
+                <!-- Standard Plan -->
+                <div class="border-2 border-blue-500 rounded-xl overflow-hidden shadow-lg transform scale-105">
+                    <div class="bg-blue-600 text-white p-6 text-center">
+                        <h3 class="text-xl font-bold">Средний</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-bold">1 490 ₽</span>
+                            <span class="text-blue-200">/месяц</span>
+                        </div>
+                        <p class="text-blue-200">45% каталогов</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Регистрация в 225 каталогах</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Проверка живучести</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Отчет по регистрации</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Премиум каталоги</span>
+                            </li>
+                        </ul>
+                        <button
+                            class="w-full mt-6 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition">Выбрать
+                            тариф</button>
+                    </div>
+                </div>
+
+                <!-- Premium Plan -->
+                <div class="border border-gray-200 rounded-xl overflow-hidden shadow-sm hover:shadow-md transition">
+                    <div class="bg-gray-100 p-6 text-center">
+                        <h3 class="text-xl font-bold">Максимальный</h3>
+                        <div class="my-4">
+                            <span class="text-4xl font-bold">2 490 ₽</span>
+                            <span class="text-gray-500">/месяц</span>
+                        </div>
+                        <p class="text-gray-600">100% каталогов</p>
+                    </div>
+                    <div class="p-6">
+                        <ul class="space-y-3">
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Регистрация в 500 каталогах</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Проверка живучести</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Отчет по регистрации</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-check text-green-500 mr-2"></i>
+                                <span>Премиум каталоги</span>
+                            </li>
+                        </ul>
+                        <button
+                            class="w-full mt-6 bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition">Выбрать
+                            тариф</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Add Catalog Section -->
+    <section id="add-catalog" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Добавить новый каталог</h2>
+
+            <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-md">
+                <p class="text-gray-600 mb-6">Помогите нам расширить нашу базу каталогов. Добавьте новый каталог или
+                    доску объявлений, и мы проверим его перед добавлением в нашу систему.</p>
+
+                <form id="catalog-form">
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Название каталога</label>
+                        <input type="text"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">URL каталога</label>
+                        <input type="url"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Категория</label>
+                        <select
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                            <option>Каталог сайтов</option>
+                            <option>Доска объявлений</option>
+                            <option>Блог-каталог</option>
+                            <option>Другое</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="block text-gray-700 mb-2">Ваш email (для обратной связи)</label>
+                        <input type="email"
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    </div>
+
+                    <div class="mb-6">
+                        <label class="block text-gray-700 mb-2">Комментарий (необязательно)</label>
+                        <textarea
+                            class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            rows="3"></textarea>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition flex items-center justify-center">
+                        <span>Отправить каталог</span>
+                        <i class="fas fa-paper-plane ml-2"></i>
+                    </button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Payment Methods Section -->
+    <section class="py-16 bg-white">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Способы оплаты</h2>
+
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-gray-50 p-8 rounded-xl shadow-sm">
+                    <div class="grid md:grid-cols-2 gap-8">
+                        <!-- Bank Card -->
+                        <div class="payment-method border-2 border-blue-500 rounded-lg p-4">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-credit-card text-3xl text-blue-500 mr-3"></i>
+                                <h3 class="text-xl font-bold">Банковская карта</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4">Оплата картой любого российского банка</p>
+                            <div class="flex space-x-2">
+                                <img src="https://cdn-icons-png.flaticon.com/512/196/196578.png" alt="Visa" class="h-8">
+                                <img src="https://cdn-icons-png.flaticon.com/512/196/196561.png" alt="Mastercard"
+                                    class="h-8">
+                                <img src="https://cdn-icons-png.flaticon.com/512/825/825454.png" alt="МИР" class="h-8">
+                            </div>
+                        </div>
+
+                        <!-- SBP -->
+                        <div
+                            class="payment-method border-2 border-gray-200 rounded-lg p-4 hover:border-blue-500 transition">
+                            <div class="flex items-center mb-4">
+                                <i class="fas fa-mobile-alt text-3xl text-gray-500 mr-3"></i>
+                                <h3 class="text-xl font-bold">СБП (Система быстрых платежей)</h3>
+                            </div>
+                            <p class="text-gray-600 mb-4">Оплата через мобильное приложение вашего банка</p>
+                            <img src="https://cdn-icons-png.flaticon.com/512/2965/2965300.png" alt="СБП" class="h-8">
+                        </div>
+                    </div>
+
+                    <div class="mt-8 p-4 bg-yellow-50 border-l-4 border-yellow-400">
+                        <div class="flex">
+                            <div class="flex-shrink-0">
+                                <i class="fas fa-exclamation-circle text-yellow-400 text-xl"></i>
+                            </div>
+                            <div class="ml-3">
+                                <p class="text-sm text-yellow-700">
+                                    Мы принимаем платежи только через российские платежные системы. Международные
+                                    системы (PayPal, Stripe и др.) не поддерживаются.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contacts Section -->
+    <section id="contacts" class="py-16 bg-gray-50">
+        <div class="container mx-auto px-4">
+            <h2 class="text-3xl font-bold text-center mb-12">Контакты</h2>
+
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold mb-6">Свяжитесь с нами</h3>
+
+                    <form id="contact-form">
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Ваше имя</label>
+                            <input type="text"
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Email</label>
+                            <input type="email"
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                required>
+                        </div>
+
+                        <div class="mb-4">
+                            <label class="block text-gray-700 mb-2">Телефон (необязательно)</label>
+                            <input type="tel"
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+
+                        <div class="mb-6">
+                            <label class="block text-gray-700 mb-2">Сообщение</label>
+                            <textarea
+                                class="w-full px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                rows="4" required></textarea>
+                        </div>
+
+                        <button type="submit"
+                            class="w-full bg-blue-600 text-white font-bold py-3 rounded-lg hover:bg-blue-700 transition">Отправить
+                            сообщение</button>
+                    </form>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-md">
+                    <h3 class="text-xl font-bold mb-6">Наши контакты</h3>
+
+                    <div class="space-y-4">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-500">
+                                <i class="fas fa-envelope text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Email</h4>
+                                <p class="text-gray-600">support@autoreg.ru</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-500">
+                                <i class="fas fa-phone-alt text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Телефон</h4>
+                                <p class="text-gray-600">+7 (800) 123-45-67</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-500">
+                                <i class="fas fa-clock text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Часы работы</h4>
+                                <p class="text-gray-600">Пн-Пт: 9:00 - 18:00</p>
+                                <p class="text-gray-600">Сб-Вс: выходной</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 text-blue-500">
+                                <i class="fas fa-map-marker-alt text-xl"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="font-bold">Адрес</h4>
+                                <p class="text-gray-600">г. Москва, ул. Примерная, д. 123</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mt-8">
+                        <h4 class="font-bold mb-4">Мы в соцсетях</h4>
+                        <div class="flex space-x-4">
+                            <a href="#" class="text-blue-600 hover:text-blue-800 transition">
+                                <i class="fab fa-vk text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-blue-400 hover:text-blue-600 transition">
+                                <i class="fab fa-telegram text-2xl"></i>
+                            </a>
+                            <a href="#" class="text-red-500 hover:text-red-700 transition">
+                                <i class="fab fa-youtube text-2xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-rocket text-blue-400 mr-2"></i>
+                        AutoReg
+                    </h3>
+                    <p class="text-gray-400">Автоматическая регистрация в каталогах и досках объявлений для продвижения
+                        вашего сайта</p>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Меню</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Главная</a></li>
+                        <li><a href="#features" class="text-gray-400 hover:text-white transition">Возможности</a></li>
+                        <li><a href="#pricing" class="text-gray-400 hover:text-white transition">Тарифы</a></li>
+                        <li><a href="#add-catalog" class="text-gray-400 hover:text-white transition">Добавить
+                                каталог</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Помощь</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">FAQ</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Документация</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Блог</a></li>
+                        <li><a href="#contacts" class="text-gray-400 hover:text-white transition">Контакты</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 class="font-bold mb-4">Юридическая информация</h4>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Политика
+                                конфиденциальности</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Пользовательское
+                                соглашение</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition">Оферта</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-700 mt-8 pt-8 text-center text-gray-400">
+                <p>© 2023 AutoReg. Все права защищены.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Add Catalog Button -->
+    <a href="#add-catalog"
+        class="fixed bottom-8 right-8 bg-blue-600 text-white p-4 rounded-full shadow-xl floating-btn">
+        <i class="fas fa-plus text-xl"></i>
+    </a>
+
+    <!-- Scripts -->
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-button').addEventListener('click', function () {
+            const menu = document.getElementById('mobile-menu');
+            menu.classList.toggle('hidden');
+        });
+
+        // Tariff selection
+        const tariffOptions = document.querySelectorAll('.tariff-option');
+        tariffOptions.forEach(option => {
+            option.addEventListener('click', function () {
+                tariffOptions.forEach(opt => {
+                    opt.classList.remove('border-blue-500', 'bg-blue-50');
+                    opt.classList.add('border-gray-200');
+                });
+                this.classList.remove('border-gray-200');
+                this.classList.add('border-blue-500', 'bg-blue-50');
+            });
+        });
+
+        // Simulate registration progress
+        document.getElementById('start-registration').addEventListener('click', function () {
+            const progressBar = document.getElementById('progress-bar');
+            const progressPercent = document.getElementById('progress-percent');
+            const remainingCount = document.getElementById('remaining-count');
+            const successCount = document.getElementById('success-count');
+            const processCount = document.getElementById('process-count');
+            const errorCount = document.getElementById('error-count');
+
+            let percent = 0;
+            let remaining = 125;
+            let success = 0;
+            let process = 125;
+            let errors = 0;
+
+            const interval = setInterval(() => {
+                percent += 1;
+                remaining -= 1;
+                process -= 1;
+
+                // Randomly decide if this step is success or error
+                if (Math.random() > 0.1) {
+                    success += 1;
+                } else {
+                    errors += 1;
+                }
+
+                progressBar.style.width = `${percent}%`;
+                progressPercent.textContent = percent;
+                remainingCount.textContent = remaining;
+                successCount.textContent = success;
+                processCount.textContent = process;
+                errorCount.textContent = errors;
+
+                if (percent >= 100) {
+                    clearInterval(interval);
+                    this.innerHTML = '<i class="fas fa-check mr-2"></i> Завершено';
+                    this.classList.remove('bg-blue-600');
+                    this.classList.add('bg-green-600');
+                }
+            }, 100);
+        });
+
+        // Form submissions
+        document.getElementById('catalog-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Спасибо! Ваш каталог отправлен на модерацию.');
+            this.reset();
+        });
+
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Ваше сообщение отправлено. Мы свяжемся с вами в ближайшее время.');
+            this.reset();
+        });
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+
+                    // Close mobile menu if open
+                    const mobileMenu = document.getElementById('mobile-menu');
+                    if (!mobileMenu.classList.contains('hidden')) {
+                        mobileMenu.classList.add('hidden');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
